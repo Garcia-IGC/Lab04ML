@@ -284,3 +284,5 @@ donde `n_min` es el soporte de la clase menos frecuente. Esto evita pedir más f
 Cuando una clase queda con solo un ejemplo dentro del entrenamiento externo, no existe una partición interna estratificada válida para esa clase. En ese caso el código usa un `KFold` interno no estratificado y deja la advertencia en `outputs/advertencias.txt`.
 
 El stacking implementado usa predicciones out-of-fold cuando la distribución de clases lo permite. Si el soporte mínimo dentro de un entrenamiento es menor que 2, usa predicciones in-sample para entrenar el meta-clasificador y conserva la evaluación externa para estimar generalización.
+
+# Lab04ML
