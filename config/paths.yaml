@@ -56,38 +56,38 @@ experiment:
 hyperparameter_search:
   default:
     scoring: "f1_macro"
-    random_n_iter: 12
+    random_n_iter: 20
 
   grid:
     models:
       bagging:
         enabled: true
         params:
-          clf__n_estimators: [25, 50]
-          clf__max_samples: [0.7, 1.0]
-          clf__estimator__max_depth: [2, null]
+          clf__n_estimators: [100, 250]
+          clf__max_samples: [0.45, 0.55]
+          clf__estimator__max_depth: [5, null]
 
       adaboost:
         enabled: true
         params:
-          clf__n_estimators: [25, 50, 100]
-          clf__learning_rate: [0.5, 1.0]
+          clf__n_estimators: [50, 75]
+          clf__learning_rate: [0.5, 0.7]
           clf__estimator__max_depth: [2, 3]
 
       stacking:
         enabled: true
         params:
-          clf__final_C: [0.1, 1.0]
-          clf__tree_max_depth: [2, null]
-          clf__n_neighbors: [3, 7]
+          clf__final_C: [0.1, 1.0, 10.0]
+          clf__tree_max_depth: [2, 4]
+          clf__n_neighbors: [5, 7, 9]
 
       gradient_boosting:
         enabled: true
         params:
-          clf__n_estimators: [50, 100]
-          clf__learning_rate: [0.05, 0.1]
-          clf__max_depth: [2, 3]
-          clf__subsample: [0.8, 1.0]
+          clf__n_estimators: [150, 200]
+          clf__learning_rate: [0.03, 0.08, 0.1]
+          clf__max_depth: [1, 2, 3]
+          clf__subsample: [0.7, 1.0]
 
   random:
     models:
@@ -96,25 +96,25 @@ hyperparameter_search:
         distributions:
           clf__n_estimators:
             dist: "randint"
-            low: 25
-            high: 151
+            low: 80
+            high: 251
           clf__max_samples:
             dist: "uniform"
-            low: 0.6
+            low: 0.45
             high: 1.0
           clf__estimator__max_depth:
-            values: [2, 3, 4, null]
+            values: [5, null]
 
       adaboost:
         enabled: true
         distributions:
           clf__n_estimators:
             dist: "randint"
-            low: 25
-            high: 151
+            low: 45
+            high: 101
           clf__learning_rate:
-            dist: "uniform"
-            low: 0.5
+            dist: "loguniform"
+            low: 0.3
             high: 1.0
           clf__estimator__max_depth:
             values: [2, 3]
@@ -127,28 +127,28 @@ hyperparameter_search:
             low: 0.01
             high: 10.0
           clf__tree_max_depth:
-            values: [2, 3, 4, null]
+            values: [2, 4]
           clf__n_neighbors:
             dist: "randint"
-            low: 3
-            high: 12
+            low: 5
+            high: 10
 
       gradient_boosting:
         enabled: true
         distributions:
           clf__n_estimators:
             dist: "randint"
-            low: 50
-            high: 151
+            low: 100
+            high: 221
           clf__learning_rate:
             dist: "loguniform"
-            low: 0.01
-            high: 0.5
+            low: 0.03
+            high: 0.2
           clf__max_depth:
             dist: "randint"
-            low: 2
-            high: 5
+            low: 1
+            high: 3
           clf__subsample:
             dist: "uniform"
-            low: 0.7
+            low: 0.65
             high: 1.0
