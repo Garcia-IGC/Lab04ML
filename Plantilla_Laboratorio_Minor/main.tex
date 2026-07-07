@@ -125,12 +125,12 @@ La Tabla~\ref{tab:mejores} muestra el mejor resultado por objetivo considerando 
 \hline
 \textbf{Objetivo} & \textbf{Mejor modelo} & \textbf{Búsqueda} & \textbf{F1 macro} \\
 \hline
-GDS & Stacking & random & 0.367 \\
+GDS & Stacking & grid & 0.362 \\
 GDS\_R1 & Gradient Boosting & grid & 0.729 \\
 GDS\_R2 & Gradient Boosting & grid & 0.669 \\
-GDS\_R3 & AdaBoost & random & 0.798 \\
-GDS\_R4 & Bagging & random & 0.615 \\
-GDS\_R5 & Bagging & random & 0.579 \\
+GDS\_R3 & AdaBoost & random & 0.800 \\
+GDS\_R4 & Bagging & grid & 0.615 \\
+GDS\_R5 & Bagging & random & 0.577 \\
 \hline
 \end{tabular}
 \caption{Mejor F1 macro por objetivo.}
@@ -152,19 +152,19 @@ La Tabla~\ref{tab:metricas} resume métricas adicionales para los mejores modelo
 \hline
 \textbf{Objetivo} & \textbf{Modelo} & \textbf{F1 macro} & \textbf{Bal. Acc.} & \textbf{Prec. macro} & \textbf{Recall macro} & \textbf{ICN} \\
 \hline
-GDS & Stacking & 0.367 & 0.472 & 0.371 & 0.472 & 0.927 \\
+GDS & Stacking & 0.362 & 0.470 & 0.363 & 0.470 & 0.907 \\
 GDS\_R1 & Gradient Boosting & 0.729 & 0.718 & 0.762 & 0.718 & 0.658 \\
-GDS\_R2 & Gradient Boosting & 0.669 & 0.649 & 0.703 & 0.649 & 0.718 \\
-GDS\_R3 & AdaBoost & 0.798 & 0.797 & 0.802 & 0.797 & 0.725 \\
-GDS\_R4 & Bagging & 0.615 & 0.648 & 0.621 & 0.648 & 0.841 \\
-GDS\_R5 & Bagging & 0.579 & 0.635 & 0.570 & 0.635 & 0.873 \\
+GDS\_R2 & Gradient Boosting & 0.669 & 0.649 & 0.703 & 0.649 & 0.552 \\
+GDS\_R3 & AdaBoost & 0.800 & 0.795 & 0.808 & 0.795 & 0.692 \\
+GDS\_R4 & Bagging & 0.615 & 0.649 & 0.621 & 0.649 & 0.854 \\
+GDS\_R5 & Bagging & 0.577 & 0.629 & 0.568 & 0.629 & 0.853 \\
 \hline
 \end{tabular}
 \caption{Métricas de los mejores modelos por objetivo.}
 \label{tab:metricas}
 \end{table*}
 
-Para analizar errores específicos se revisaron matrices de confusión. En GDS\_R3, el mejor modelo fue AdaBoost con búsqueda aleatoria. La matriz de confusión agregada se muestra en la Tabla~\ref{tab:cmr3}. El modelo clasificó correctamente 888 ejemplos de la clase 1 y 113 ejemplos de la clase 3, con 59 errores en cada dirección. El F1 por clase fue 0.938 para la clase 1 y 0.657 para la clase 3, evidenciando el efecto del desbalance.
+Para analizar errores específicos se revisaron matrices de confusión. En GDS\_R3, el mejor modelo fue AdaBoost con búsqueda aleatoria. La matriz de confusión agregada se muestra en la Tabla~\ref{tab:cmr3}. El modelo clasificó correctamente 894 ejemplos de la clase 1 y 111 ejemplos de la clase 3. El F1 por clase fue 0.940 para la clase 1 y 0.661 para la clase 3, evidenciando el efecto del desbalance.
 
 \begin{table}[!h]
 \centering
@@ -172,15 +172,15 @@ Para analizar errores específicos se revisaron matrices de confusión. En GDS\_
 \hline
 \textbf{Real / Pred.} & \textbf{1} & \textbf{3} \\
 \hline
-1 & 888 & 59 \\
-3 & 59 & 113 \\
+1 & 894 & 53 \\
+3 & 61 & 111 \\
 \hline
 \end{tabular}
 \caption{Matriz de confusión para GDS\_R3 con AdaBoost random.}
 \label{tab:cmr3}
 \end{table}
 
-En GDS\_R5, el mejor resultado fue obtenido por Bagging con búsqueda aleatoria. La Tabla~\ref{tab:cmr5} muestra que la clase 2, mayoritaria, concentra la mayor cantidad de aciertos, mientras que la clase 1 tiene menor F1 por clase. Los F1 por clase fueron 0.367, 0.714 y 0.658 para las clases 1, 2 y 3, respectivamente.
+En GDS\_R5, el mejor resultado fue obtenido por Bagging con búsqueda aleatoria. La Tabla~\ref{tab:cmr5} muestra que la clase 2, mayoritaria, concentra la mayor cantidad de aciertos, mientras que la clase 1 tiene menor F1 por clase. Los F1 por clase fueron 0.365, 0.715 y 0.650 para las clases 1, 2 y 3, respectivamente.
 
 \begin{table}[!h]
 \centering
@@ -188,9 +188,9 @@ En GDS\_R5, el mejor resultado fue obtenido por Bagging con búsqueda aleatoria.
 \hline
 \textbf{Real / Pred.} & \textbf{1} & \textbf{2} & \textbf{3} \\
 \hline
-1 & 83 & 64 & 2 \\
-2 & 217 & 504 & 77 \\
-3 & 3 & 46 & 123 \\
+1 & 82 & 65 & 2 \\
+2 & 215 & 508 & 75 \\
+3 & 3 & 49 & 120 \\
 \hline
 \end{tabular}
 \caption{Matriz de confusión para GDS\_R5 con Bagging random.}
@@ -202,7 +202,7 @@ Los resultados muestran que no existe un único modelo ganador para todos los ob
 
 El caso GDS debe interpretarse con especial cautela. Aunque Stacking obtuvo el mayor F1 macro para este objetivo, la clase menos frecuente tiene solo dos ejemplos. Esto limita la validación externa a dos folds y obliga al ciclo interno a usar \textit{KFold} no estratificado cuando una clase queda con un solo ejemplo en entrenamiento. Por tanto, el valor de F1 macro en GDS es menos estable que en los demás objetivos.
 
-En GDS\_R3 se obtuvo el mejor F1 macro global, cercano a 0.80. Sin embargo, las métricas por clase muestran que el rendimiento no es homogéneo: la clase mayoritaria alcanza F1 de 0.938, mientras que la clase minoritaria alcanza 0.657. Esto evidencia la importancia de usar F1 macro y no solo exactitud global. En GDS\_R5, Bagging logra buen comportamiento relativo, pero la matriz de confusión muestra confusión importante entre las clases 1 y 2.
+En GDS\_R3 se obtuvo el mejor F1 macro global, superando levemente 0.80. Sin embargo, las métricas por clase muestran que el rendimiento no es homogéneo: la clase mayoritaria alcanza F1 de 0.940, mientras que la clase minoritaria alcanza 0.661. Esto evidencia la importancia de usar F1 macro y no solo exactitud global. En GDS\_R5, Bagging logra buen comportamiento relativo, pero la matriz de confusión muestra confusión importante entre las clases 1 y 2.
 
 La comparación entre \textit{GridSearchCV} y \textit{RandomizedSearchCV} también resulta relevante. Algunos objetivos favorecieron la búsqueda exhaustiva y otros la búsqueda aleatoria. RandomizedSearchCV permitió explorar rangos más amplios sin evaluar todas las combinaciones posibles, mientras que GridSearchCV fue útil en espacios pequeños y controlados. La configuración desde YAML facilitó modificar los hiperparámetros sin alterar la lógica del código.
 
@@ -224,7 +224,7 @@ La ejecución completa se realiza con el comando mostrado en el Código~\ref{lst
 python main.py
 \end{lstlisting}
 
-Los resultados principales se almacenaron en \texttt{outputs/tables/resumen\_resultados.csv}. Las advertencias metodológicas quedaron en \texttt{outputs/advertencias.txt}; en esta ejecución solo se registraron advertencias para GDS por soporte insuficiente en el ciclo interno. La ejecución finalizó correctamente y generó tablas, matrices de confusión y métricas por clase.
+Los resultados principales se almacenaron en \texttt{outputs/tables/resumen\_resultados.csv}. Las advertencias metodológicas quedaron en \texttt{outputs/advertencias.txt}; la advertencia principal corresponde a GDS por soporte insuficiente en el ciclo interno. Además, algunas combinaciones aleatorias de AdaBoost fueron descartadas por \textit{scikit-learn} al producir ajustes no válidos, quedando registradas con puntaje no finito. La ejecución finalizó correctamente y generó tablas, matrices de confusión y métricas por clase.
 
 \appendices
 
